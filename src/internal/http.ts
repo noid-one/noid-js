@@ -12,11 +12,11 @@ export async function request<T>(baseUrl: string, options: RequestOptions): Prom
   const url = `${baseUrl}${options.path}`;
 
   const headers: Record<string, string> = {
-    'Accept': 'application/json',
+    Accept: 'application/json',
   };
 
   if (options.token) {
-    headers['Authorization'] = `Bearer ${options.token}`;
+    headers.Authorization = `Bearer ${options.token}`;
   }
 
   if (options.body !== undefined) {
@@ -33,7 +33,9 @@ export async function request<T>(baseUrl: string, options: RequestOptions): Prom
     });
   } catch (err) {
     if (err instanceof DOMException && err.name === 'TimeoutError') {
-      throw new NoidConnectionError(`Request timed out after ${options.timeout}ms`, { cause: err as Error });
+      throw new NoidConnectionError(`Request timed out after ${options.timeout}ms`, {
+        cause: err as Error,
+      });
     }
     throw new NoidConnectionError(`Failed to connect to ${baseUrl}`, { cause: err as Error });
   }
@@ -45,7 +47,7 @@ export async function request<T>(baseUrl: string, options: RequestOptions): Prom
 
   // Parse response body
   const text = await response.text();
-  let body: any;
+  let body: unknown;
   try {
     body = text ? JSON.parse(text) : undefined;
   } catch {
@@ -54,8 +56,9 @@ export async function request<T>(baseUrl: string, options: RequestOptions): Prom
 
   // Error responses
   if (response.status >= 400) {
-    const errorMessage = body?.error ?? body?.message ?? (text || `HTTP ${response.status}`);
-    throw new NoidAPIError(response.status, errorMessage);
+    const errBody = body as Record<string, unknown> | undefined;
+    const errorMessage = errBody?.error ?? errBody?.message ?? (text || `HTTP ${response.status}`);
+    throw new NoidAPIError(response.status, String(errorMessage));
   }
 
   return body as T;

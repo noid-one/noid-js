@@ -29,7 +29,7 @@ export class NoidWebSocket extends EventEmitter {
     return new Promise((resolve, reject) => {
       this.ws = new WebSocket(this.url, {
         headers: {
-          'Authorization': `Bearer ${this.token}`,
+          Authorization: `Bearer ${this.token}`,
         },
       });
 

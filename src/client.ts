@@ -1,16 +1,16 @@
-import { Vm } from './vm.js';
-import { request } from './internal/http.js';
-import type {
-  NoidClientOptions,
-  VmInfo,
-  CreateVmOptions,
-  VersionInfo,
-  WhoamiResponse,
-  Capabilities,
-} from './types.js';
-import { validateVmName } from './internal/validation.js';
 import { DEFAULT_TIMEOUT_MS, TOKEN_PREFIX } from './constants.js';
 import { NoidValidationError } from './errors.js';
+import { request } from './internal/http.js';
+import { validateVmName } from './internal/validation.js';
+import type {
+  Capabilities,
+  CreateVmOptions,
+  NoidClientOptions,
+  VersionInfo,
+  VmInfo,
+  WhoamiResponse,
+} from './types.js';
+import { Vm } from './vm.js';
 
 export class NoidClient {
   readonly baseUrl: string;

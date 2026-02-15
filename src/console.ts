@@ -1,9 +1,9 @@
 import { EventEmitter } from 'node:events';
-import { Readable, Writable, PassThrough } from 'node:stream';
-import type { Vm } from './vm.js';
-import type { ConsoleOptions, EnvVars } from './types.js';
-import { NoidWebSocket } from './internal/websocket.js';
+import { PassThrough, type Readable, type Writable } from 'node:stream';
 import { StreamID } from './constants.js';
+import { NoidWebSocket } from './internal/websocket.js';
+import type { ConsoleOptions, EnvVars } from './types.js';
+import type { Vm } from './vm.js';
 
 export class VmConsole extends EventEmitter {
   readonly stdin: Writable;
@@ -36,9 +36,7 @@ export class VmConsole extends EventEmitter {
   }
 
   private buildUrl(): string {
-    return this.vm.client.wsUrl(
-      `/v1/vms/${encodeURIComponent(this.vm.name)}/console`
-    );
+    return this.vm.client.wsUrl(`/v1/vms/${encodeURIComponent(this.vm.name)}/console`);
   }
 
   /**

@@ -3,7 +3,7 @@ export const API_VERSION = 1;
 export enum StreamID {
   Stdout = 0x01,
   Stderr = 0x02,
-  Stdin  = 0x03,
+  Stdin = 0x03,
   Resize = 0x04,
 }
 

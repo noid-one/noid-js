@@ -1,35 +1,32 @@
 // Classes
 export { NoidClient } from './client.js';
-export { Vm } from './vm.js';
-export { VmCommand } from './exec.js';
 export { VmConsole } from './console.js';
-
-// Types
-export type {
-  NoidClientOptions,
-  VmInfo,
-  CreateVmOptions,
-  ExecOptions,
-  ExecResult,
-  SpawnOptions,
-  ConsoleOptions,
-  CheckpointInfo,
-  CreateCheckpointOptions,
-  RestoreOptions,
-  VersionInfo,
-  WhoamiResponse,
-  Capabilities,
-  EnvVars,
-} from './types.js';
-
+// Constants
+export { API_VERSION, StreamID } from './constants.js';
 // Errors
 export {
-  NoidError,
   NoidAPIError,
-  NoidExecError,
   NoidConnectionError,
+  NoidError,
+  NoidExecError,
   NoidValidationError,
 } from './errors.js';
-
-// Constants
-export { StreamID, API_VERSION } from './constants.js';
+export { VmCommand } from './exec.js';
+// Types
+export type {
+  Capabilities,
+  CheckpointInfo,
+  ConsoleOptions,
+  CreateCheckpointOptions,
+  CreateVmOptions,
+  EnvVars,
+  ExecOptions,
+  ExecResult,
+  NoidClientOptions,
+  RestoreOptions,
+  SpawnOptions,
+  VersionInfo,
+  VmInfo,
+  WhoamiResponse,
+} from './types.js';
+export { Vm } from './vm.js';

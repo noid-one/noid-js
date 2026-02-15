@@ -10,19 +10,25 @@
       "default": "./dist/index.js"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "engines": {
     "node": ">=18.0.0"
   },
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
+    "lint": "biome check src/",
+    "lint:fix": "biome check --write src/",
+    "format": "biome format --write src/",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "ws": "^8.18.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.4.0",
     "@types/ws": "^8.5.0",
     "typescript": "^5.4.0"
   },

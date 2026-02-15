@@ -1,23 +1,24 @@
+import type { NoidClient } from './client.js';
+import { VmConsole } from './console.js';
+import { VmCommand } from './exec.js';
+import { validateEnvVars } from './internal/validation.js';
 import type {
-  VmInfo,
+  CheckpointInfo,
+  ConsoleOptions,
+  CreateCheckpointOptions,
+  EnvVars,
   ExecOptions,
   ExecResult,
-  SpawnOptions,
-  ConsoleOptions,
-  CheckpointInfo,
-  CreateCheckpointOptions,
   RestoreOptions,
-  EnvVars,
+  SpawnOptions,
+  VmInfo,
 } from './types.js';
-import type { NoidClient } from './client.js';
-import { VmCommand } from './exec.js';
-import { VmConsole } from './console.js';
-import { validateEnvVars } from './internal/validation.js';
 
 export class Vm {
   readonly name: string;
   readonly client: NoidClient;
 
+  // biome-ignore lint/correctness/noUnusedPrivateClassMembers: cached for future use
   private _info?: VmInfo;
 
   constructor(name: string, client: NoidClient) {
@@ -32,20 +33,14 @@ export class Vm {
 
   /** Fetch current VM info from server. */
   async info(): Promise<VmInfo> {
-    const info = await this.client.fetch<VmInfo>(
-      'GET',
-      `/v1/vms/${encodeURIComponent(this.name)}`
-    );
+    const info = await this.client.fetch<VmInfo>('GET', `/v1/vms/${encodeURIComponent(this.name)}`);
     this._info = info;
     return info;
   }
 
   /** Destroy this VM. */
   async destroy(): Promise<void> {
-    await this.client.fetch<void>(
-      'DELETE',
-      `/v1/vms/${encodeURIComponent(this.name)}`
-    );
+    await this.client.fetch<void>('DELETE', `/v1/vms/${encodeURIComponent(this.name)}`);
   }
 
   /**
@@ -65,7 +60,7 @@ export class Vm {
     return this.client.fetch<ExecResult>(
       'POST',
       `/v1/vms/${encodeURIComponent(this.name)}/exec`,
-      body
+      body,
     );
   }
 
@@ -93,14 +88,14 @@ export class Vm {
     return this.client.fetch<CheckpointInfo>(
       'POST',
       `/v1/vms/${encodeURIComponent(this.name)}/checkpoints`,
-      { label: options?.label }
+      { label: options?.label },
     );
   }
 
   async listCheckpoints(): Promise<CheckpointInfo[]> {
     return this.client.fetch<CheckpointInfo[]>(
       'GET',
-      `/v1/vms/${encodeURIComponent(this.name)}/checkpoints`
+      `/v1/vms/${encodeURIComponent(this.name)}/checkpoints`,
     );
   }
 
@@ -116,7 +111,7 @@ export class Vm {
     const info = await this.client.fetch<VmInfo>(
       'POST',
       `/v1/vms/${encodeURIComponent(this.name)}/restore`,
-      body
+      body,
     );
     const restoredName = options?.newName ?? this.name;
     const vm = new Vm(restoredName, this.client);

@@ -1,5 +1,5 @@
+import { MAX_ENV_VALUE_LEN, MAX_ENV_VARS } from '../constants.js';
 import { NoidValidationError } from '../errors.js';
-import { MAX_ENV_VARS, MAX_ENV_VALUE_LEN } from '../constants.js';
 import type { EnvVars } from '../types.js';
 
 const VM_NAME_MAX_LEN = 64;
@@ -34,7 +34,7 @@ export function validateEnvVars(env: EnvVars): void {
     if (!ENV_NAME_REGEX.test(key)) {
       throw new NoidValidationError(
         'env',
-        `Invalid environment variable name '${key}': must match [A-Za-z_][A-Za-z0-9_]*`
+        `Invalid environment variable name '${key}': must match [A-Za-z_][A-Za-z0-9_]*`,
       );
     }
     if (typeof value !== 'string') {
@@ -43,7 +43,7 @@ export function validateEnvVars(env: EnvVars): void {
     if (value.length > MAX_ENV_VALUE_LEN) {
       throw new NoidValidationError(
         'env',
-        `Environment variable '${key}' value exceeds maximum length of ${MAX_ENV_VALUE_LEN} bytes`
+        `Environment variable '${key}' value exceeds maximum length of ${MAX_ENV_VALUE_LEN} bytes`,
       );
     }
   }

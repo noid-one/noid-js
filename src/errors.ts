@@ -20,10 +20,18 @@ export class NoidAPIError extends NoidError {
     this.errorMessage = errorMessage;
   }
 
-  isNotFound(): boolean { return this.statusCode === 404; }
-  isConflict(): boolean { return this.statusCode === 409; }
-  isUnauthorized(): boolean { return this.statusCode === 401; }
-  isRateLimited(): boolean { return this.statusCode === 429; }
+  isNotFound(): boolean {
+    return this.statusCode === 404;
+  }
+  isConflict(): boolean {
+    return this.statusCode === 409;
+  }
+  isUnauthorized(): boolean {
+    return this.statusCode === 401;
+  }
+  isRateLimited(): boolean {
+    return this.statusCode === 429;
+  }
 }
 
 /** Command execution errors (non-zero exit) */
