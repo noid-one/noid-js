@@ -5,7 +5,7 @@ TypeScript SDK for the Noid VM platform.
 ## Installation
 
 ```bash
-npm install @noid/sdk
+npm install github:noid-one/noid-js
 ```
 
 ## Quick Start

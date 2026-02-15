@@ -2033,7 +2033,7 @@ TypeScript SDK for the Noid VM platform.
 
 ## Installation
 
-npm install @noid/sdk
+npm install github:noid-one/noid-js
 
 ## Quick Start
 
